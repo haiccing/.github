@@ -1,7 +1,7 @@
-# haiccing
+# HAICCing
 
 Projects you can run, and the packages they need, ready to run. Everything
-starts with HAICC, which declares what a project needs, checks it, and
+is managed with the HAICC tool, which declares what a project needs, checks it, and
 makes it so.
 
 ## Start here

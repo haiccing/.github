@@ -1,35 +1,47 @@
 # HAICCing
 
-Projects you can run, and the packages they need, ready to run. Everything
-is managed with the HAICC tool, which declares what a project needs, checks it, and
-makes it so.
+The packages of the HAICC platform, ready to run, and the `haicc` command
+that runs them. Each package is one bundle, run with
+[Bare](https://github.com/holepunchto/bare), tested from that bundle, its
+test report inside it.
 
 HAICC stands for human-AI creative collaboration: the way the
 [SPLectrum](https://splectrum.world) project is made, and now also the name of
-the platform built that way, with AI autonomy in mind. A project here is a
-whole: a swarm of nodes in containers, SPLectral to see it run, and what it is
-meant to show. The two demos are the first: a node goes quiet and the swarm
-notices; a node joins from another host by invitation.
+the platform built that way, with AI autonomy in mind. An install is a boot
+mrepo, a repository that runs, on your machine, with mrepos deployed beside
+and below it: a host, a swarm's nodes, each node's replica in a Docker
+container, and SPLectral to watch it in a browser. Everything is done with
+`haicc`, and every command is a request, recorded with its log.
 
 ## Start here
 
-Linux on x86-64 (on Windows: inside WSL2), with `curl` and `tar`:
+Linux on x86-64 (on Windows: inside WSL2), with `git`, `curl` and `tar`, and
+Docker for the nodes' containers. Installing from the releases is not built
+yet, so for now the packages are built from the development repository:
 
 ```sh
-rm -f haicc-setup.sh && curl -fL --progress-bar --retry 5 --retry-all-errors --connect-timeout 20 \
-     -o haicc-setup.sh https://github.com/haiccing/base-package-haicc/releases/latest/download/haicc-setup.sh \
-  && sh haicc-setup.sh ~/haicc-work \
-  && ~/haicc-work/boot \
-  && cd ~/haicc-work && ./haicc list
+git clone https://github.com/splectrum/splectrum-dev-env-3-mycelium
+cd splectrum-dev-env-3-mycelium
+sh tools/install.sh                 # the dependencies, with curl and tar
+tools/bare tools/release.js         # every package built into sources/
+sh haiccing/base-linux-haicc/haicc-install.sh
+haicc sources link "$PWD/sources"
+haicc prereq                        # every line ok
 ```
 
-One command: it stops at the first step that fails (a failed download included).
-The setup is about 39 MB (it carries Bare's runtime). On a poor connection: if the download stops, `curl -fL -C - -o haicc-setup.sh https://github.com/haiccing/base-package-haicc/releases/latest/download/haicc-setup.sh` continues it where it stopped; run it again until it ends without an error, then `sh haicc-setup.sh ~/haicc-work && ~/haicc-work/boot`.
+Then from nothing to a running cluster, with SPLectral showing it:
 
-The setup carries everything HAICC runs on (Bare's runtime included: nothing
-to download). The boot checks git and Docker Engine, and fixes what is missing
-only with your yes. Everything stays in the work folder, in plain sight.
-Everything it does is logged in the work folder's `log/` (`~/haicc-work/log/`): files named by their start, newest last.
-Running the projects from there is the next step.
+```sh
+haicc boot/deploy
+haicc . boot/deploy splectral base-package-splectral --flags continuation=start
+haicc splectral splectral/status    # the page's address: http://127.0.0.1:4400
+haicc . boot/deploy host base-component-haicc --flags continuation=cluster
+haicc host howto                    # what can be done here
+haicc boot/teardown                 # everything stopped and removed
+```
+
+`haicc --help` lists the commands. The repositories here named `base-demo-`
+and `base-swarm-`, and `base-package-pkgm`, `-p2p` and `-third-party`, are of
+the earlier platform and do not run on this one.
 
 Part of the engineering of [SPLectrum](https://splectrum.world).

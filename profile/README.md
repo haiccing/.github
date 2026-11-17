@@ -15,17 +15,14 @@ container, and SPLectral to watch it in a browser. Everything is done with
 
 ## Start here
 
-Linux on x86-64 (on Windows: inside WSL2), with `git`, `curl` and `tar`, and
-Docker for the nodes' containers. Installing from the releases is not built
-yet, so for now the packages are built from the development repository:
+Linux on x86-64 (on Windows: inside WSL2), with `curl`, `tar` and
+`sha256sum`, and Docker for the nodes' containers. The command and the
+packages install from their releases here:
 
 ```sh
-git clone https://github.com/splectrum/splectrum-dev-env-3-mycelium
-cd splectrum-dev-env-3-mycelium
-sh tools/install.sh                 # the dependencies, with curl and tar
-tools/bare tools/release.js         # every package built into sources/
-sh haiccing/base-linux-haicc/haicc-install.sh
-haicc sources link "$PWD/sources"
+curl -fsSLO https://github.com/haiccing/base-linux-haicc/releases/latest/download/haicc-install.sh
+sh haicc-install.sh
+haicc sources download bare haiccing
 haicc prereq                        # every line ok
 ```
 

@@ -41,9 +41,9 @@ haicc boot/teardown                 # everything stopped and removed
 and `base-swarm-`, and `base-package-pkgm`, `-p2p` and `-third-party`, are of
 the earlier platform and do not run on this one.
 
-## The five organisations
+## The seven organisations
 
-SPLectrum's engineering is spread over five GitHub organisations:
+SPLectrum's engineering is spread over seven GitHub organisations:
 
 - **[splectrum](https://github.com/splectrum)**: where SPLectrum, the
   philosophy project, lives, and where its engineering is planned.
@@ -53,7 +53,11 @@ SPLectrum's engineering is spread over five GitHub organisations:
   all of the platform's code, one module a repository.
 - **[HAICCing](https://github.com/haiccing)** (this one): the packages made from those
   modules, and the `haicc` command: what you can run. Start here.
-- **[SPLectral](https://github.com/splectral)**: components for seeing and
-  working with running systems in the browser.
+- **[myctral](https://github.com/myctral)**: mycelium's data
+  repositories: state.
+- **[myctrans](https://github.com/myctrans)**: data transformation:
+  process.
+- **[SPLectral](https://github.com/splectral)**: interaction, first of
+  all the UI.
 
 Part of the engineering of [SPLectrum](https://splectrum.world).
